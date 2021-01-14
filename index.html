@@ -1,0 +1,317 @@
+<html>
+<head>
+	<style>
+body{
+	background-color: #f0f8ff
+}
+.h1{
+text-align: center;
+color: black;
+font-size: 30px;
+font-family: 'Courier New', monospace;
+}
+.h2{
+	text-align: center;
+}
+
+.canvas-wrap {
+  margin-top: 50px;
+  position: relative;
+}
+#canvasID {
+  z-index: 9999;
+}
+.canvas {
+  background-color: #eee;
+   opacity: 0;
+  transition: opacity .3s;
+  &.show {
+    opacity: 1;
+  }
+  .page-wrap {
+  display: inline-block;
+  margin: 2em auto;
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
+	</head>
+<body>
+<div class="h1">
+	<br>
+	Create your own MEME !.!..!...
+</div>
+<div class="page-wrap">
+	<br><br>
+<input type="file" id="imageLoader">
+<input type="text" id="0" style="color:red;padding:10px 20px;font-size: 20px;">
+
+<input type="number" id="i1" oninput="post()">
+<input type="number" id="i2" oninput="post()">
+<input type="number" id="i3" oninput="post()">
+<br>
+<input type="button" value="SHOW" onclick="show()">
+<div id="canvas-wrap">
+<canvas style="display: block;" id="imageCanvas" width="400" height="400">
+<canvas id="canvasID"></canvas>
+</div>
+</div>
+<br>
+<div class="h2">
+<input type="button" value="Download Meme" onclick="download()" style="color:green;background-color: transparent;border:transparent;font-size: 20px;">
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p id ="demo"></p>
+<script>
+	var ii1=0,ii2=0,ii3=0,ii4=0,ii5=0,ii6=0,iii3=0,jj1=0,jj2=0;
+var x=0,y=10,z=100,w=1000;
+var k="";
+var y1 ="",y3="",y2="",y0="";
+var imageLoader = document.getElementById('imageLoader');
+    imageLoader.addEventListener('change', handleImage, false);
+
+var canvas = document.getElementById('imageCanvas');
+var ctx = canvas.getContext('2d');
+var cFont = ctx.font;
+var img = new Image();
+img.crossOrigin="anonymous";
+
+
+function post(){
+ 
+        DrawOverlay(img);
+        DrawText(); 
+        DynamicText(img);   
+    
+
+   
+}
+
+
+function DrawOverlay(img) {
+    ctx.drawImage(img,0,0);
+    ctx.fillStyle = 'transparent';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+function DrawText() {
+	iii3=document.getElementById("i3").value;
+    //ctx.fillStyle = k;
+    ctx.textBaseline = 'middle';
+    var fontArgs = ctx.font.split(' ');
+    var newSize = iii3+"px";
+    ctx.font = newSize + ' ' + fontArgs[fontArgs.length - 1];
+    
+   if(x==1){
+
+    ii1=document.getElementById("11").value;
+    ii2=document.getElementById("101").value;
+    jj1=document.getElementById("1001").value;
+    ctx.fillStyle = jj1;
+       ctx.fillText(y0,ii1,ii2);
+      
+    }
+    if(x==2){
+      ii1=document.getElementById("11").value;
+    ii2=document.getElementById("101").value;
+    jj1=document.getElementById("1001").value;
+    ii3=document.getElementById("12").value;
+    ii4=document.getElementById("102").value;
+    jj2=document.getElementById("1002").value;
+    ctx.fillStyle = jj1;
+      ctx.fillText(y0,ii1,ii2);
+      ctx.fillStyle = jj2;
+      ctx.fillText(y1,ii3,ii4);
+    }
+    if(x==3){
+      ii1=document.getElementById("11").value;
+    ii2=document.getElementById("101").value;
+    ii3=document.getElementById("12").value;
+    ii4=document.getElementById("102").value;
+    ii5=document.getElementById("13").value;
+    ii6=document.getElementById("103").value;
+      ctx.fillText(y0,ii1,ii2);
+      ctx.fillText(y1,ii3,ii4);
+      ctx.fillText(y2,ii5,ii6);
+   }
+
+
+
+
+    else{
+
+    }
+}
+function DynamicText(img) {
+  document.getElementById(x).addEventListener('keyup', function() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    DrawOverlay(img);
+    DrawText(); 
+  
+     if(x==1){
+      ii1=document.getElementById("11").value;
+    ii2=document.getElementById("101").value;
+    y0=document.getElementById("1").value;
+       ctx.fillText(y0,ii1,ii2);
+      
+    }
+    if(x==2){
+      ii1=document.getElementById("11").value;
+    ii2=document.getElementById("101").value;
+    ii3=document.getElementById("12").value;
+    ii4=document.getElementById("102").value;
+     y1=document.getElementById("2").value;
+      ctx.fillText(y0,ii1,ii2);
+      ctx.fillText(y1,ii3,ii4);
+    }
+    if(x==3){
+      ii1=document.getElementById("11").value;
+    ii2=document.getElementById("101").value;
+    ii3=document.getElementById("12").value;
+    ii4=document.getElementById("102").value;
+     ii5=document.getElementById("13").value;
+    ii6=document.getElementById("103").value;
+     y2=document.getElementById("3").value;
+      ctx.fillText(y0,ii1,ii2);
+      ctx.fillText(y1,ii3,ii4);
+      ctx.fillText(y2,ii5,ii6);
+    }
+    else{
+
+    }
+    
+
+   
+  
+
+  });
+}
+function handleImage(e) {
+    var reader = new FileReader();
+    
+    var src = "";
+    reader.onload = function(event) {
+        
+        img.onload = function() {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img,0,0);
+        }
+        img.src = event.target.result;
+        src = event.target.result;
+        canvas.classList.add("show");
+        DrawOverlay(img);
+        DrawText(); 
+        DynamicText(img);   
+    }
+
+    reader.readAsDataURL(e.target.files[0]); 
+ 
+}
+function download(){
+	var link=document.createElement("a");
+	document.body.appendChild(link);
+	link.download="html_image.png";
+	link.href=canvas.toDataURL("image/png");
+	link.target="_blank";
+	link.click();
+}
+
+
+function show(){
+ x=x+1;
+ y=y+1;
+ z=z+1;
+ w=w+1;
+    var objNewDiv = document.createElement('div');
+    objNewDiv.setAttribute('id', 'div_' + x);
+    
+    objNewDiv.innerHTML = '<input type="text" id="'+x+'" name="'+x+'" oninput="post()"/><input type="number" id="'+y+'" oninput="post()"/><input type="number" id="'+z+'" oninput="post()"/><input type="color" id="'+w+'" onchange="post()">';
+    document.getElementById('demo').appendChild(objNewDiv);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>	
+</html>
